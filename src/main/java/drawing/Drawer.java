@@ -5,17 +5,88 @@ import java.awt.Color;
 import main.java.image.Image;
 
 public class Drawer{
-  public static Image drawLine(Image image, double xStart, double yStart, double xEnd, double yEnd, int thickness){
+  public static Image drawLine(Image image, int xStart, int yStart, int xEnd, int yEnd, int thickness, int color){
     if(xStart == xEnd){
-      if(yStart == yEnd){
-
+      if(yStart < yEnd){
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_2(image, xStart + offset, yStart, xEnd + offset, yEnd, color);
+        }
+        return image;
+      }
+      else if(yStart == yEnd){
+        image.setPixel(xStart, yStart, color);
+        return image;
+      }
+      else{
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_6(image, xStart + offset, yStart, xEnd + offset, yEnd, color);
+        }
+        return image;
       }
     }
 
-    return image;
+    double slope = (double)(yEnd - yStart) / ((double)(xEnd - xStart));
+    System.out.println(slope);
+
+    if(slope < -1){
+      if(xStart < xEnd){
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_7(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+      else{
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_3(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+    }
+    else if(-1 <= slope && slope < 0){
+      if(xStart < xEnd){
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_8(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+      else{
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_4(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+    }
+    else if(0 <= slope && slope <= 1){
+      if(xStart < xEnd){
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_1(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+      else{
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_5(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+    }
+    else{ // if(slope > 1)
+      if(xStart < xEnd){
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_2(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+      else{
+        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_6(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
+        }
+        return image;
+      }
+    }
   }
 
-  public static void drawLineBresenham_1(Image image, int xStart, int yStart, int xEnd, int yEnd){
+  public static void drawLineBresenham_1(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
     int dx = xEnd - xStart;
     int dy = yEnd - yStart;
     int e = -(dx >> 1);
@@ -23,7 +94,7 @@ public class Drawer{
     int y = yStart;
 
     while(x <= xEnd){
-      image.setPixel(x, y, WHITE);
+      image.setPixel(x, y, color);
 
       x++;
 
@@ -35,7 +106,7 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham_2(Image image, int xStart, int yStart, int xEnd, int yEnd){
+  public static void drawLineBresenham_2(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
     int dx = xEnd - xStart;
     int dy = yEnd - yStart;
     int e = -(dy >> 1);
@@ -43,7 +114,7 @@ public class Drawer{
     int y = yStart;
 
     while(y <= yEnd){
-      image.setPixel(x, y, WHITE);
+      image.setPixel(x, y, color);
 
       y++;
 
@@ -55,7 +126,7 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham_3(Image image, int xStart, int yStart, int xEnd, int yEnd){
+  public static void drawLineBresenham_3(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
     int dx = xStart - xEnd;
     int dy = yEnd - yStart;
     int e = -(dy >> 1);
@@ -63,7 +134,7 @@ public class Drawer{
     int y = yStart;
 
     while(y <= yEnd){
-      image.setPixel(x, y, WHITE);
+      image.setPixel(x, y, color);
 
       y++;
 
@@ -75,23 +146,23 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham_4(Image image, int xStart, int yStart, int xEnd, int yEnd){
-    drawLineBresenham_8(image, xEnd, yEnd, xStart, yStart);
+  public static void drawLineBresenham_4(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
+    drawLineBresenham_8(image, xEnd, yEnd, xStart, yStart, color);
   }
 
-  public static void drawLineBresenham_5(Image image, int xStart, int yStart, int xEnd, int yEnd){
-    drawLineBresenham_1(image, xEnd, yEnd, xStart, yStart);
+  public static void drawLineBresenham_5(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
+    drawLineBresenham_1(image, xEnd, yEnd, xStart, yStart, color);
   }
 
-  public static void drawLineBresenham_6(Image image, int xStart, int yStart, int xEnd, int yEnd){
-    drawLineBresenham_2(image, xEnd, yEnd, xStart, yStart);
+  public static void drawLineBresenham_6(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
+    drawLineBresenham_2(image, xEnd, yEnd, xStart, yStart, color);
   }
 
-  public static void drawLineBresenham_7(Image image, int xStart, int yStart, int xEnd, int yEnd){
-    drawLineBresenham_3(image, xEnd, yEnd, xStart, yStart);
+  public static void drawLineBresenham_7(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
+    drawLineBresenham_3(image, xEnd, yEnd, xStart, yStart, color);
   }
 
-  public static void drawLineBresenham_8(Image image, int xStart, int yStart, int xEnd, int yEnd){
+  public static void drawLineBresenham_8(Image image, int xStart, int yStart, int xEnd, int yEnd, int color){
     int dx = xEnd - xStart;
     int dy = yStart - yEnd;
     int e = -(dx >> 1);
@@ -99,7 +170,7 @@ public class Drawer{
     int y = yStart;
 
     while(x <= xEnd){
-      image.setPixel(x, y, WHITE);
+      image.setPixel(x, y, color);
 
       x++;
 
@@ -112,4 +183,5 @@ public class Drawer{
   }
 
   public static final int WHITE = Color.WHITE.getRGB();
+
 }
