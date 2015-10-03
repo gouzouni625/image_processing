@@ -12,18 +12,17 @@ public class ImageProcessing{
     double relativeWidth = (double)(oldWidth) / ((double)(newWidth));
     double relativeHeight = (double)(oldHeight) / ((double)(newHeight));
 
+    double factorX = 0;
+    int oldX = 0;
+    double deltaX = 0;
     for(int x = 0;x < newWidth;x++){
+      double factorY = 0;
+      int oldY = 0;
+      double deltaY = 0;
+
       for(int y = 0;y < newHeight;y++){
 
-        double factorX = x * relativeWidth;
-        int oldX = (int)(factorX);
-        double deltaX = factorX - oldX;
-
-        double factorY = y * relativeHeight;
-        int oldY = (int)(factorY);
-        double deltaY = factorY - oldY;
-
-        double newPixelValue = 0;
+        double newPixelValue;
         if((oldX == oldWidth - 1) && oldY == (oldHeight - 1)){
           newPixelValue = image.getPixel(oldX, oldY) * (1 - deltaX) * (1 - deltaY);
         }
@@ -43,7 +42,15 @@ public class ImageProcessing{
         }
 
         resizedImage.setPixel(x, y, (int)(newPixelValue));
+
+        factorY += relativeHeight;
+        oldY = (int)(factorY);
+        deltaY = factorY - oldY;
       }
+
+      factorX += relativeWidth;
+      oldX = (int)(factorX);
+      deltaX = factorX - oldX;
     }
 
     return resizedImage;
