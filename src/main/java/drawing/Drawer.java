@@ -26,7 +26,6 @@ public class Drawer{
     }
 
     double slope = (double)(yEnd - yStart) / ((double)(xEnd - xStart));
-    System.out.println(slope);
 
     if(slope < -1){
       if(xStart < xEnd){
