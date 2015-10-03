@@ -41,6 +41,14 @@ public class Image{
     ImageIO.write(bufferedImage, "bmp", outputFile);
   }
 
+  public int getWidth(){
+    return width_;
+  }
+
+  public int getHeight(){
+    return height_;
+  }
+
   private int width_;
   private int height_;
 
