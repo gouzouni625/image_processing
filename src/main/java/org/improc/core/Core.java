@@ -1,8 +1,8 @@
-package image_processing;
+package org.improc.core;
 
-import main.java.image.Image;
+import org.improc.image.Image;
 
-public class ImageProcessing{
+public class Core {
   public static Image resize(Image image, int newWidth, int newHeight){
     Image resizedImage = new Image(newWidth, newHeight);
 

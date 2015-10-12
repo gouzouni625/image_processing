@@ -1,4 +1,4 @@
-package main.java.image;
+package org.improc.image;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,16 +29,16 @@ public class Image{
     return pixels_[x][y];
   }
 
-  public void save(String path) throws IOException{
-    BufferedImage bufferedImage = new BufferedImage(width_, height_, BufferedImage.TYPE_INT_RGB);
+  public void save(String outputDirectory, String outputFileName, String outputExtension) throws IOException{
+    BufferedImage bufferedImage = new BufferedImage(width_, height_, BufferedImage.TYPE_BYTE_GRAY);
     for(int x = 0;x < width_;x++){
       for(int y = 0;y < height_;y++){
         bufferedImage.setRGB(x, height_ - y - 1, pixels_[x][y]);
       }
     }
 
-    File outputFile = new File(path);
-    ImageIO.write(bufferedImage, "bmp", outputFile);
+    File outputFile = new File(outputDirectory + outputFileName + "." + outputExtension);
+    ImageIO.write(bufferedImage, outputExtension, outputFile);
   }
 
   public int getWidth(){

@@ -1,9 +1,11 @@
-/bin/
-/testing_dir/
-
 .project
 .classpath
 .idea
 
 image_processing.iml
-/src/executables/
+
+data
+
+src/devel/
+src/executables/
+target/

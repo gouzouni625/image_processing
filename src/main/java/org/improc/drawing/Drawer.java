@@ -1,8 +1,8 @@
-package main.java.drawing;
+package org.improc.drawing;
 
 import java.awt.Color;
 
-import main.java.image.Image;
+import org.improc.image.Image;
 
 public class Drawer{
   public static Image drawLine(Image image, int xStart, int yStart, int xEnd, int yEnd, int thickness, int color){
@@ -57,9 +57,9 @@ public class Drawer{
     }
     else if(0 <= slope && slope <= 1){
       if(xStart < xEnd){
-        for(int offset = -thickness / 2; offset < thickness / 2;offset++){
-          drawLineBresenham_1(image, xStart, yStart + offset, xEnd, yEnd + offset, color);
-        }
+        //for(int offset = -thickness / 2; offset < thickness / 2;offset++){
+          drawLineBresenham_1(image, xStart, yStart/* + offset*/, xEnd, yEnd/* + offset*/, color);
+        //}
         return image;
       }
       else{
@@ -93,7 +93,9 @@ public class Drawer{
     int y = yStart;
 
     while(x <= xEnd){
-      image.setPixel(x, y, color);
+      for(int offset = -10 / 2; offset < 10 / 2;offset++) {
+        image.setPixel(x, y + offset, color);
+      }
 
       x++;
 
