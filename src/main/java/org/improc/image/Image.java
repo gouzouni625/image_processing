@@ -11,9 +11,9 @@ public class Image{
     width_ = width;
     height_ = height;
 
-    pixels_ = new int[width_][];
+    pixels_ = new byte[width_][];
     for(int i = 0;i < width_;i++){
-      pixels_[i] = new int[height_];
+      pixels_[i] = new byte[height_];
 
       for(int j = 0;j < height_;j++){
         pixels_[i][j] = 0;
@@ -21,11 +21,11 @@ public class Image{
     }
   }
 
-  public void setPixel(int x, int y, int value){
+  public void setPixel(int x, int y, byte value){
     pixels_[x][y] = value;
   }
 
-  public int getPixel(int x, int y){
+  public byte getPixel(int x, int y){
     return pixels_[x][y];
   }
 
@@ -53,6 +53,6 @@ public class Image{
   private int height_;
 
   // Pixels begin counting from the bottom left with the first dimensional being the horizontal.
-  private int[][] pixels_;
+  private byte[][] pixels_;
 
 }
