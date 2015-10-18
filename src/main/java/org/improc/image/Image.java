@@ -29,7 +29,8 @@ public class Image{
     return pixels_[x][y];
   }
 
-  public void save(String outputDirectory, String outputFileName, String outputExtension) throws IOException{
+  public void save(String outputDirectory, String outputFileName, String outputExtension)
+      throws IOException{
     BufferedImage bufferedImage = new BufferedImage(width_, height_, BufferedImage.TYPE_BYTE_GRAY);
     for(int x = 0;x < width_;x++){
       for(int y = 0;y < height_;y++){

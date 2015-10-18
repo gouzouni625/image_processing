@@ -5,7 +5,8 @@ import java.awt.Color;
 import org.improc.image.Image;
 
 public class Drawer{
-  public static Image drawLine(Image image, int xStart, int yStart, int xEnd, int yEnd, int thickness, byte color){
+  public static Image drawLine(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                               int thickness, byte color){
     if(xStart == xEnd){
       if(yStart < yEnd){
         drawLineBresenham2Vertical(image, xStart, yStart, xEnd, yEnd, color, thickness);
@@ -65,8 +66,8 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham1(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham1(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     int dx = xEnd - xStart;
     int dy = yEnd - yStart;
     int e = -(dx >> 1);
@@ -88,8 +89,8 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham2(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham2(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     int dx = xEnd - xStart;
     int dy = yEnd - yStart;
     int e = -(dy >> 1);
@@ -111,8 +112,8 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham2Vertical(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                                 int thickness){
+  public static void drawLineBresenham2Vertical(Image image, int xStart, int yStart, int xEnd,
+                                                int yEnd, byte color, int thickness){
     int dx = xEnd - xStart;
     int dy = yEnd - yStart;
     int e = -(dy >> 1);
@@ -134,8 +135,8 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham3(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham3(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     int dx = xStart - xEnd;
     int dy = yEnd - yStart;
     int e = -(dy >> 1);
@@ -157,33 +158,33 @@ public class Drawer{
     }
   }
 
-  public static void drawLineBresenham4(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham4(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     drawLineBresenham8(image, xEnd, yEnd, xStart, yStart, color, thickness);
   }
 
-  public static void drawLineBresenham5(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham5(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     drawLineBresenham1(image, xEnd, yEnd, xStart, yStart, color, thickness);
   }
 
-  public static void drawLineBresenham6(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham6(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     drawLineBresenham2(image, xEnd, yEnd, xStart, yStart, color, thickness);
   }
 
-  public static void drawLineBresenham6Vertical(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                                 int thickness){
+  public static void drawLineBresenham6Vertical(Image image, int xStart, int yStart, int xEnd,
+                                                int yEnd, byte color, int thickness){
     drawLineBresenham2Vertical(image, xEnd, yEnd, xStart, yStart, color, thickness);
   }
 
-  public static void drawLineBresenham7(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham7(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     drawLineBresenham3(image, xEnd, yEnd, xStart, yStart, color, thickness);
   }
 
-  public static void drawLineBresenham8(Image image, int xStart, int yStart, int xEnd, int yEnd, byte color,
-                                         int thickness){
+  public static void drawLineBresenham8(Image image, int xStart, int yStart, int xEnd, int yEnd,
+                                        byte color, int thickness){
     int dx = xEnd - xStart;
     int dy = yStart - yEnd;
     int e = -(dx >> 1);
