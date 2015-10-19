@@ -284,4 +284,74 @@ public class Core {
     return borderedImage;
   }
 
+  public static Image affineTransformRotate(Image image, double[][] affineMatrix){
+    int width = image.getWidth();
+    int halfWidth = width >> 1;
+    int height = image.getHeight();
+    int halfHeight = height >> 1;
+
+    Image rotatedImage = new Image(width, height);
+
+    int minX = -halfWidth;
+    int maxX = minX + width;
+    int minY = -halfHeight;
+    int maxY = minY + height;
+    for(int xPrime = minX;xPrime < maxX;xPrime++){
+      double xStart = affineMatrix[1][1] * xPrime;
+      double yStart = -affineMatrix[1][0] * xPrime;
+      for(int yPrime = minY;yPrime < maxY;yPrime++){
+        double x = xStart - affineMatrix[0][1] * yPrime;
+        double y = yStart + affineMatrix[0][0] * yPrime;
+
+        int xLeft = (int)x + halfWidth;
+        int xRight = xLeft + 1;
+        int yDown = (int)y + halfHeight;
+        int yUp = yDown + 1;
+
+        if(x < minX || x > maxX - 1 || y < minY || y > maxY - 1){
+          rotatedImage.setPixel(xPrime + halfWidth, yPrime + halfHeight, (byte)0);
+        }
+        else if(x == maxX - 1 && y == maxY - 1){
+          rotatedImage.setPixel(xPrime + halfWidth, yPrime + halfHeight,
+              image.getPixel(xLeft, yDown));
+        }
+        else if(x == maxX - 1){
+          rotatedImage.setPixel(xPrime + halfWidth, yPrime + halfHeight,
+              (byte)((y - yDown) * image.getPixel(xLeft, yUp) +
+                     (yUp - y) * image.getPixel(xLeft, yDown)));
+        }
+        else if (y == maxY - 1){
+          rotatedImage.setPixel(xPrime + halfWidth, yPrime + halfHeight,
+              (byte)((x - xLeft) * image.getPixel(xRight, yDown) +
+                  (xRight - x) * image.getPixel(xLeft, yDown)));
+        }
+        else {
+          byte valueUp = (byte) ((x - xLeft) * image.getPixel(xRight, yUp) +
+              (xRight - x) * image.getPixel(xLeft, yUp));
+          byte valueDown = (byte) ((x - xLeft) * image.getPixel(xRight, yDown) +
+              (xRight - x) * image.getPixel(xLeft, yDown));
+
+          rotatedImage.setPixel(xPrime + halfWidth, yPrime + halfHeight,
+              (byte) ((y - yDown) * valueUp + (yUp - y) * valueDown));
+        }
+      }
+    }
+
+    return rotatedImage;
+  }
+
+  public static Image affineTransformScale(Image image, double scaleFactorX, double scaleFactorY){
+    return image;
+  }
+
+  public static Image affineTransformShear(Image image, double shearingFactorX, double
+      shearingFactorY){
+    return image;
+  }
+
+  public static Image affineTransformTranslate(Image image, double translateFactorX, double
+      translateFactorY){
+    return image;
+  }
+
 }
