@@ -1,0 +1,12 @@
+.project
+.classpath
+.idea
+
+image_processing.iml
+
+/data
+todo
+
+src/devel/
+src/executables/
+target/
